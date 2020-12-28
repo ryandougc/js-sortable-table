@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        i {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="table-filters">
+            <input type="text" id="search-bar" placeholder="Search..." value="" autocomplete="off">
+            <div id="item-limit-btns">
+                <button id="limit-table-10" onclick="limitTable(10)">10</button>
+                <button id="limit-table-20" onclick="limitTable(20)">20</button>
+                <button id="limit-table-35" onclick="limitTable(35)">35</button>
+            </div>
+            <div id="pagination">
+                <button id="prev" value="-1">Prev</button>
+                <button id="next" value="1">Next</button>
+            </div>
+        </div>
+
+        <table id="table"></table>
+    </div>
+<script src="./sortingTable.js"></script>
+</body>
+</html>
