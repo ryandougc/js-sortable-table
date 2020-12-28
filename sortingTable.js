@@ -87,11 +87,6 @@ function buildTableHeaders(tableDom, headers) {
     const tHead = tableDom.createTHead();
     const headerRow = tHead.insertRow();
 
-    // Insert master checkbox
-    const masterCheck = document.createElement('th');
-    masterCheck.innerHTML = `<input type="checkbox" name="masterCheck" id="masterCheck">`;
-    headerRow.appendChild(masterCheck);
-
     // Insert table headers
     headers.forEach((header, index) => {
         const th = document.createElement('th');
@@ -111,10 +106,6 @@ function buildTableBody(tableDom, data, min, max) {
     // Insert Body
     for (let i = min; i < max; i++) {
         let newRow = tBody.insertRow();
-
-        // Insert Checkbox for each row
-        let rowCheck = newRow.insertCell();
-        rowCheck.innerHTML = `<input type="checkbox" name="rowCheck${i}" class="rowCheck">`;
 
         // Insert data into row
         data[i].forEach(cell => {
