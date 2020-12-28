@@ -2,9 +2,10 @@
 A Vanilla JavaScript plugin that adds feature rich tables to your site.
 
 # Features
-- Search
-- Pagination
-- Limit number of items shown
+- Search array of data
+- Limit number of items shown at once
+- Paginate data
+- Sort each column in ascending or descending order
 # How to use
 1. Create a table HTML element with and id of "table"
 `<table id="table"></table>`
