@@ -59,7 +59,7 @@ let table = {
     },
     maxPage: function() {
         let numOfPages = this.data.length / this.limit;
-        return Math.ceil(numOfPages); 
+        return Math.ceil(numOfPages);
     }
 }
 
@@ -182,7 +182,8 @@ function insertionSort(direction, array, index) {
 
 
 // Limit # of items showing on a page
-function limitTable(num) { // Uses global Variables
+function limitTable(selectElem) { // Uses global Variables
+    let num = selectElem.value;
     if (num > table.currentData.length) {
         table.limit = table.data.length;
     } else {

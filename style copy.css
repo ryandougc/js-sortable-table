@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#content {
+    width: 50vw;
+    margin: auto;
+    margin-top: 10vh;
+}
+
+#search-bar {
+    height: 20px;
+    width: 18%;
+    margin-bottom: 2vh;
+    padding: 4px 8px 4px 8px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+
+#table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#table thead {
+    text-align: left;
+    color: #E5E7E6;
+    background-color: #4F9D69;
+}
+
+#table thead th {
+    padding: 14px 35px 14px 35px;
+}
+
+#table tbody {
+    border: 1px solid lightgray;
+}
+
+#table tbody tr td {
+    padding: 10px 35px 10px 35px;
+    display:table-cell;
+}
+
+#table tbody tr:not(:last-of-type) {
+    border-bottom: 1px solid lightgray;
+}
+
+.button {
+
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+body {
+    background-color: red;
+}
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+
+}
