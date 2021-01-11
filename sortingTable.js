@@ -45,7 +45,6 @@ let table = {
     ],
     sortDirection: [null, null],
     tableElem: document.getElementById('table'),
-    limit: 10,
     page: 1,
     min: function() {
         return this.limit * this.page - this.limit;
@@ -79,6 +78,13 @@ function capitalize(string) {
     return cleanedString;
 }
 table.currentData = JSON.parse(JSON.stringify(table.data));
+// Set the table row limit
+if(document.querySelector('#item-limit')){
+    table.limit = 10;
+}else {
+    table.limit = table.currentData.length;
+}
+
 
 
 
@@ -183,6 +189,7 @@ function insertionSort(direction, array, index) {
 const pageLimitSelect = document.querySelector('#item-limit');
 
 if(pageLimitSelect) {
+    // Create page limit select box options
     const pageLimitOption1 = document.createElement('option');
     const pageLimitOption2 = document.createElement('option');
     const pageLimitOption3 = document.createElement('option');
@@ -218,17 +225,15 @@ if(pageLimitSelect) {
 
         buildTableBody(table.tableElem, table.currentData, table.min(), table.max());
     }
-}
 
 
 
-// Pagination
-const pagination = document.querySelector('#pagination');
 
-if(pagination) {
     // Create pagination buttons
-    const paginationBtnsDiv = document.createElement('div');
+    const pagination = document.createElement('div');
+    pagination.setAttribute('id', 'pagination')
 
+    const paginationBtnsDiv = document.createElement('div');
     paginationBtnsDiv.setAttribute('id', 'pagination-btns');
 
     const prevPageBtn = document.createElement('button');
@@ -254,6 +259,8 @@ if(pagination) {
 
     pagination.appendChild(paginationBtnsDiv);
 
+    document.querySelector('#content').appendChild(pagination)
+
     // Logic to change page when clicking buttons
     function pageChange(e) { // Requires Global variable
         if (e.target.value < 0 && table.page > 1) {
@@ -267,7 +274,6 @@ if(pagination) {
         buildTableBody(table.tableElem, table.currentData, table.min(), table.max());
     }
 }
-
 
 
 
