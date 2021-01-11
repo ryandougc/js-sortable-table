@@ -1,3 +1,5 @@
+if(document.getElementById('table')){
+
 // Table element and data
 let table = {
     headers: [
@@ -62,7 +64,6 @@ let table = {
         return Math.ceil(numOfPages);
     }
 }
-
 
 
 
@@ -179,90 +180,150 @@ function insertionSort(direction, array, index) {
 }
 
 
+const pageLimitSelect = document.querySelector('#item-limit');
 
+if(pageLimitSelect) {
+    const pageLimitOption1 = document.createElement('option');
+    const pageLimitOption2 = document.createElement('option');
+    const pageLimitOption3 = document.createElement('option');
 
-// Limit # of items showing on a page
-function limitTable(selectElem) { // Uses global Variables
-    let num = selectElem.value;
-    if (num > table.currentData.length) {
-        table.limit = table.data.length;
-    } else {
-        table.limit = num;
+    pageLimitOption1.setAttribute('value', '10');
+    pageLimitOption2.setAttribute('value', '20');
+    pageLimitOption3.setAttribute('value', '30');
+
+    pageLimitOption1.innerHTML = "10";
+    pageLimitOption2.innerHTML = "20";
+    pageLimitOption3.innerHTML = "30";
+
+    pageLimitSelect.appendChild(pageLimitOption1);
+    pageLimitSelect.appendChild(pageLimitOption2);
+    pageLimitSelect.appendChild(pageLimitOption3);
+
+    pageLimitSelect.setAttribute('name', 'item-limit');
+    pageLimitSelect.setAttribute('class', 'input');
+    pageLimitSelect.setAttribute('autocomplete', 'off');
+
+    pageLimitSelect.addEventListener('change', limitTable);
+
+    // Logic to Limit # of items showing on a page
+    function limitTable(event) { // Uses global Variables
+        let num = event.target.value;
+        if (num > table.currentData.length) {
+            table.limit = table.data.length;
+        } else {
+            table.limit = num;
+        }
+
+        table.page = 1;
+
+        buildTableBody(table.tableElem, table.currentData, table.min(), table.max());
     }
-
-    table.page = 1;
-
-    buildTableBody(table.tableElem, table.currentData, table.min(), table.max());
 }
-
 
 
 
 // Pagination
-const prevPageBtn = document.querySelector('#prev');
-const nextPageBtn = document.querySelector('#next');
+const pagination = document.querySelector('#pagination');
 
-prevPageBtn.addEventListener('click', pageChange);
-nextPageBtn.addEventListener('click', pageChange);
+if(pagination) {
+    // Create pagination buttons
+    const paginationBtnsDiv = document.createElement('div');
 
-function pageChange(e) { // Requires Global variable
-    if (e.target.value < 0 && table.page > 1) {
-        // Previous Page
-        table.page--;
-    } else if (e.target.value > 0 && table.page < table.maxPage()) {
-        // Next Page
-        table.page++;
+    paginationBtnsDiv.setAttribute('id', 'pagination-btns');
+
+    const prevPageBtn = document.createElement('button');
+    const nextPageBtn = document.createElement('button');
+
+    prevPageBtn.setAttribute('id', 'prev');
+    nextPageBtn.setAttribute('id', 'next');
+
+    prevPageBtn.setAttribute('value', '-1');
+    nextPageBtn.setAttribute('value', '1');
+
+    prevPageBtn.classList.add('button', 'input');
+    nextPageBtn.classList.add('button', 'input');
+
+    prevPageBtn.innerHTML = "Previous";
+    nextPageBtn.innerHTML = "Next";
+
+    prevPageBtn.addEventListener('click', pageChange);
+    nextPageBtn.addEventListener('click', pageChange);
+
+    paginationBtnsDiv.appendChild(prevPageBtn);
+    paginationBtnsDiv.appendChild(nextPageBtn);
+
+    pagination.appendChild(paginationBtnsDiv);
+
+    // Logic to change page when clicking buttons
+    function pageChange(e) { // Requires Global variable
+        if (e.target.value < 0 && table.page > 1) {
+            // Previous Page
+            table.page--;
+        } else if (e.target.value > 0 && table.page < table.maxPage()) {
+            // Next Page
+            table.page++;
+        }
+
+        buildTableBody(table.tableElem, table.currentData, table.min(), table.max());
     }
-
-    buildTableBody(table.tableElem, table.currentData, table.min(), table.max());
 }
+
 
 
 
 
 // Search the table
-let searchTimeout   = null;
-const searchBar     = document.querySelector('input');
+const searchBar     = document.querySelector('#search-bar');
 
-searchBar.addEventListener('keydown', search);
+if(searchBar) {
+    searchBar.setAttribute("placeholder", "Search...");
+    searchBar.setAttribute("autocomplete", "off");
+    searchBar.setAttribute("value", "");
+    searchBar.classList.add('input');
+    searchBar.addEventListener('keydown', search);
 
-function search(event) {
-    clearTimeout(searchTimeout);
+    let searchTimeout   = null;
 
-    table.tableElem.tBodies[0].style.display = 'none';
+    function search(event) {
+        clearTimeout(searchTimeout);
 
-    searchTimeout = setTimeout(_ => {
-        table.currentData = searchData(event.target.value);
+        table.tableElem.tBodies[0].style.display = 'none';
 
-        if (table.currentData === null) {
-            table.currentData = JSON.parse(JSON.stringify(table.data));
+        searchTimeout = setTimeout(_ => {
+            table.currentData = searchData(event.target.value);
 
-            if (table.sortDirection[0] !== null) {
-                table.currentData = insertionSort(table.sortDirection[0], table.currentData, table.sortDirection[1]);
+            if (table.currentData === null) {
+                table.currentData = JSON.parse(JSON.stringify(table.data));
+
+                if (table.sortDirection[0] !== null) {
+                    table.currentData = insertionSort(table.sortDirection[0], table.currentData, table.sortDirection[1]);
+                }
             }
+
+            buildTableBody(table.tableElem, table.currentData, table.min(), table.max());
+        }, 350)
+    }
+    function searchData(searchTerm) { // Requires Global Variables
+        let matchingItems       = [];
+        const searchTermRegex   = new RegExp(searchTerm.toLowerCase());
+
+        if (searchTerm == "") {
+            return null;
         }
 
-        buildTableBody(table.tableElem, table.currentData, table.min(), table.max());
-    }, 350)
-}
-function searchData(searchTerm) { // Uses Global Variables
-    let matchingItems       = [];
-    const searchTermRegex   = new RegExp(searchTerm.toLowerCase());
+        table.data.forEach( (item, i) => {
+            item.forEach( (value, j) => {
+                let valueStr = value.toString().toLowerCase();
+                const isFound = Boolean(valueStr.match(searchTermRegex));
 
-    if (searchTerm == "") {
-        return null;
-    }
-
-    table.data.forEach( (item, i) => {
-        item.forEach( (value, j) => {
-            let valueStr = value.toString().toLowerCase();
-            const isFound = Boolean(valueStr.match(searchTermRegex));
-
-            if (isFound){
-                matchingItems.push(item);
-            }
+                if (isFound){
+                    matchingItems.push(item);
+                }
+            })
         })
-    })
 
-    return matchingItems;
+        return matchingItems;
+    }
+}
+
 }

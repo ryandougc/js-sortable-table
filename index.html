@@ -7,31 +7,17 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        i {
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
     <div id="content">
         <div id="table-filters">
-            <input type="text" id="search-bar" class="input" placeholder="Search..." value="" autocomplete="off">
-            <select name="item-limit" id="item-limit-dropdown" class="input" autocomplete="off" onchange="limitTable(this)">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="35">35</option>
-            </select>
+            <input type="text" id="search-bar">
+            <select id="item-limit"></select>
         </div>
 
         <table id="table"></table>
 
-        <div id="pagination">
-            <div id="pagination-btns">
-                <button id="prev" class="button input" value="-1">Prev</button>
-                <button id="next" class="button input" value="1">Next</button>
-            </div>
-        </div>
+        <div id="pagination"></div>
     </div>
 <script src="./sortingTable.js"></script>
 </body>
