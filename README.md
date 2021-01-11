@@ -8,17 +8,17 @@ A Vanilla JavaScript plugin that adds feature rich tables to your site.
 - Paginate table
 
 # How to use
-#### 1. Create a table HTML element with and id of "table"
+#### 1. Create a table HTML element with and id of "table"  
 `<table id="table"></table>`
 <br>  <br>
 
 #### 2. Add your headers in the table.headers property in 'sortingTable.js'
-Headers are stored in an array:
+Headers are stored in an array:  
 `['Header1', 'Header2']`
 <br><br>
 
 #### 3. Add your data into the table object in 'sortingTable.js'
-Data is stored in an array, with each index holding an array to represent the data for each row of the table:
+Data is stored in an array, with each index holding an array to represent the data for each row of the table:  
 `[['row1', 'value1'], ['row2', 'value2]]`
 <br><br>
 
