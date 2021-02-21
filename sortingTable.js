@@ -41,7 +41,7 @@ let table = {
         ["Hot Dogs", 1.79],
         ["Goat", 123.99],
         ["Olives", 3.99],
-        ["Pickles", 5.99],
+        ["Pickles", 5.99]
     ],
     sortDirection: [null, null],
     tableElem: document.getElementById('table'),
